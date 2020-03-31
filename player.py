@@ -7,7 +7,6 @@ class Player:
 
     left = 0
     right = 1
-    moving_speed = 2
 
     def __init__(self, player_pos, game):
         self.y = Config.field_height // 2
