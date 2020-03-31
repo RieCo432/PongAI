@@ -40,6 +40,13 @@ if __name__ == "__main__":
                     games[active_game].player_right.speed_y = - Config.player_speed
                 elif event.key == pygame.K_DOWN:
                     games[active_game].player_right.speed_y = Config.player_speed
+
+                if event.key == pygame.K_RIGHT:
+                    active_game += 1
+                    active_game %= num_games
+                elif event.key == pygame.K_LEFT:
+                    active_game -= 1
+                    active_game %= num_games
                     
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_w or event.key == pygame.K_s:
@@ -62,7 +69,9 @@ if __name__ == "__main__":
         frametimes.append((datetime.now() - frameend).total_seconds())
         frameend = datetime.now()
         if (datetime.now() - last_framerate_update).total_seconds() > 0.5:
-            pygame.display.set_caption("%f player 1: %d player 2: %d" % (1/(sum(frametimes)/len(frametimes)),
+            pygame.display.set_caption("Active game: %d/%d Player 1: %d Player 2: %d Framerate: %f" % (active_game+1,
+                                                                                                       num_games,
                                                                          games[active_game].player_left.score,
-                                                                         games[active_game].player_right.score))
+                                                                         games[active_game].player_right.score,
+                                                                         1/(sum(frametimes)/len(frametimes))))
             last_framerate_update = datetime.now()
